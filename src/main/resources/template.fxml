@@ -79,7 +79,7 @@
       </SplitPane>
       <Pane fx:id="learnPane" maxHeight="340.0" maxWidth="600.0" minHeight="340.0" minWidth="600.0" prefHeight="340.0" prefWidth="600.0" visible="false">
          <children>
-            <HBox fx:id="HBox0" alignment="CENTER" layoutY="340.0" maxHeight="60.0" maxWidth="600.0" minHeight="60.0" minWidth="600.0" prefHeight="60.0" prefWidth="600.0" spacing="5.0" style="-fx-background-color: gray;">
+            <HBox fx:id="hBoxEasy" alignment="CENTER" layoutY="340.0" maxHeight="60.0" maxWidth="600.0" minHeight="60.0" minWidth="600.0" prefHeight="60.0" prefWidth="600.0" spacing="5.0" style="-fx-background-color: gray;">
                <children>
                 <Button contentDisplay="CENTER" maxHeight="40.0" maxWidth="200.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #f4f4f4;" text="Button" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                      <cursor>
@@ -109,15 +109,24 @@
                   </Button>
                </children>
             </HBox>
-            <HBox fx:id="HBox1" alignment="CENTER" disable="true" layoutY="340.0" maxHeight="60.0" maxWidth="600.0" minHeight="60.0" minWidth="600.0" prefHeight="60.0" prefWidth="600.0" spacing="5.0" style="-fx-background-color: gray;" visible="false">
+            <HBox fx:id="hBoxMedium" alignment="CENTER" disable="true" layoutY="340.0" maxHeight="60.0" maxWidth="600.0" minHeight="60.0" minWidth="600.0" prefHeight="60.0" prefWidth="600.0" spacing="5.0" style="-fx-background-color: gray;" visible="false">
                <children>
-                  <TextField alignment="CENTER" maxHeight="40.0" maxWidth="300.0" minHeight="40.0" minWidth="300.0" prefHeight="40.0" prefWidth="300.0" promptText="Your Answear" />
+                  <TextField alignment="CENTER" maxHeight="40.0" maxWidth="300.0" minHeight="40.0" minWidth="300.0" prefHeight="40.0" prefWidth="300.0" promptText="Your Answear">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></TextField>
                </children>
             </HBox>
-            <HBox fx:id="HBox2" alignment="CENTER" disable="true" layoutY="340.0" maxHeight="60.0" maxWidth="600.0" minHeight="60.0" minWidth="600.0" prefHeight="60.0" prefWidth="600.0" spacing="5.0" style="-fx-background-color: gray;" visible="false">
+            <HBox fx:id="hBoxHard" alignment="CENTER" disable="true" layoutY="340.0" maxHeight="60.0" maxWidth="600.0" minHeight="60.0" minWidth="600.0" prefHeight="60.0" prefWidth="600.0" spacing="5.0" style="-fx-background-color: gray;" visible="false">
                <children>
-                  <TextField alignment="CENTER" maxHeight="40.0" maxWidth="120.0" minHeight="40.0" minWidth="120.0" prefHeight="40.0" prefWidth="120.0" promptText="Your Answear" />
-                  <TextField alignment="CENTER" maxHeight="40.0" maxWidth="300.0" minHeight="40.0" minWidth="300.0" prefHeight="40.0" prefWidth="300.0" promptText="Your Answear" />
+                  <TextField alignment="CENTER" maxHeight="40.0" maxWidth="120.0" minHeight="40.0" minWidth="120.0" prefHeight="40.0" prefWidth="120.0" promptText="Your Answear">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></TextField>
+                  <TextField alignment="CENTER" maxHeight="40.0" maxWidth="300.0" minHeight="40.0" minWidth="300.0" prefHeight="40.0" prefWidth="300.0" promptText="Your Answear">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor></TextField>
                </children>
             </HBox>
             <Label fx:id="wordDisplay" alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="1.0" prefHeight="340.0" prefWidth="600.0" text="Der Kopf">
@@ -142,12 +151,21 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button maxHeight="50.0" maxWidth="130.0" minHeight="50.0" minWidth="130.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #f4f4f4; -fx-border-color: gray gray gray transparent; -fx-border-width: 2 1 1 1;" text="Select Right" />
-                  <Button maxHeight="50.0" maxWidth="130.0" minHeight="50.0" minWidth="130.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #f4f4f4; -fx-border-color: gray gray gray transparent; -fx-border-width: 1;" text="Word Writing" />
-                  <Button maxHeight="50.0" maxWidth="130.0" minHeight="50.0" minWidth="130.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #f4f4f4; -fx-border-color: gray gray gray transparent; -fx-border-width: 1 1 2 1;" text="Word Writing + Pronoun">
+                  <Button fx:id="contextMenuEasy" maxHeight="50.0" maxWidth="130.0" minHeight="50.0" minWidth="130.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #f4f4f4; -fx-border-color: gray gray gray transparent; -fx-border-width: 2 1 1 1;" text="Select Right">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button fx:id="contextMenuMedium" maxHeight="50.0" maxWidth="130.0" minHeight="50.0" minWidth="130.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #f4f4f4; -fx-border-color: gray gray gray transparent; -fx-border-width: 1;" text="Word Writing">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button fx:id="contextMenuHard" maxHeight="50.0" maxWidth="130.0" minHeight="50.0" minWidth="130.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #f4f4f4; -fx-border-color: gray gray gray transparent; -fx-border-width: 1 1 2 1;" text="Word Writing + Pronoun">
                      <font>
                         <Font size="10.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children>
             </VBox>

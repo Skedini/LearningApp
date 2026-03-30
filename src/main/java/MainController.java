@@ -3,9 +3,14 @@ import javafx.fxml.FXML;
 import javafx.geometry.Point3D;
 import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+
+import java.awt.event.ActionListener;
 
 public class MainController {
     @FXML Pane rootPane;
@@ -13,6 +18,9 @@ public class MainController {
     @FXML SplitPane addMaterialPane;
     @FXML Pane learnPane;
     @FXML VBox contextMenu;
+    @FXML HBox hBoxEasy;
+    @FXML HBox hBoxMedium;
+    @FXML HBox hBoxHard;
 
 //  =============Buttons==========
 
@@ -21,11 +29,14 @@ public class MainController {
     @FXML Button backButton1;
     @FXML Button backButton;
     @FXML Button contextMenuButton;
+    @FXML Button contextMenuEasy;
+    @FXML Button contextMenuMedium;
+    @FXML Button contextMenuHard;
 
 //  =============Values==========
 
 
-
+//  ========== Main Tab =========
     @FXML
     private void initialize(){
         startButton.setOnAction(e -> {
@@ -43,20 +54,64 @@ public class MainController {
             learnPane.setVisible(false);
         });
 
+//  ================= Add Material Pane ===============
+
         backButton.setOnAction(e -> {
             mainPane.setVisible(true);
             addMaterialPane.setVisible(false);
         });
 
+
+
+//  ================= Learning Pane ==================
+
         contextMenuButton.setOnAction(e ->{
-            contextMenuButton.setDisable(true);
             sideBarAnim();
         });
 
+        contextMenuEasy.setOnAction(e ->{
+            hBoxEasy.setVisible(true);
+            hBoxMedium.setVisible(false);
+            hBoxHard.setVisible(false);
+            hBoxEasy.setDisable(false);
+            hBoxMedium.setDisable(true);
+            hBoxHard.setDisable(true);
+        });
+
+        contextMenuMedium.setOnAction(e ->{
+            hBoxEasy.setVisible(false);
+            hBoxMedium.setVisible(true);
+            hBoxHard.setVisible(false);
+            hBoxEasy.setDisable(true);
+            hBoxMedium.setDisable(false);
+            hBoxHard.setDisable(true);
+        });
+
+        contextMenuHard.setOnAction(e ->{
+            hBoxEasy.setVisible(false);
+            hBoxMedium.setVisible(false);
+            hBoxHard.setVisible(true);
+            hBoxEasy.setDisable(true);
+            hBoxMedium.setDisable(true);
+            hBoxHard.setDisable(false);
+        });
+
+        hBoxMedium.setOnKeyPressed(e ->{
+           if (e.getCode() == KeyCode.ENTER){
+               backButton1.fire();
+           }
+        });
+
+        hBoxHard.setOnKeyPressed(e ->{
+            if (e.getCode() == KeyCode.ENTER){
+                backButton1.fire();
+            }
+        });
 
         }
     //      ============Anim====================
     private void sideBarAnim() {
+        contextMenuButton.setDisable(true);
         TranslateTransition menuTransition = new TranslateTransition(Duration.millis(200), contextMenu);
         TranslateTransition btnMove = new TranslateTransition(Duration.millis(200), contextMenuButton);
         RotateTransition btnRotation = new RotateTransition(Duration.millis(200), contextMenuButton);
