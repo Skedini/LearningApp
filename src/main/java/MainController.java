@@ -1,8 +1,13 @@
 import javafx.animation.*;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Point3D;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
@@ -11,8 +16,12 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainController {
+    @FXML TextField subjectName;
     @FXML Pane rootPane;
     @FXML Pane mainPane;
     @FXML SplitPane addMaterialPane;
@@ -21,17 +30,25 @@ public class MainController {
     @FXML HBox hBoxEasy;
     @FXML HBox hBoxMedium;
     @FXML HBox hBoxHard;
+    @FXML VBox wordVBox;
+
+    SQLiteController sql = new SQLiteController();
 
 //  =============Buttons==========
 
     @FXML Button startButton;
     @FXML Button addMaterialButton;
+    @FXML Button addWordButton;
+    @FXML Button saveSubjectButton;
     @FXML Button backButton1;
     @FXML Button backButton;
     @FXML Button contextMenuButton;
     @FXML Button contextMenuEasy;
     @FXML Button contextMenuMedium;
     @FXML Button contextMenuHard;
+
+    public MainController() throws SQLException {
+    }
 
 //  =============Values==========
 
@@ -60,6 +77,54 @@ public class MainController {
             mainPane.setVisible(true);
             addMaterialPane.setVisible(false);
         });
+
+        saveSubjectButton.setOnAction(e -> {
+            System.out.println(subjectName.getText());
+            for(Word word : getWords()){
+                System.out.println(word.getPronoun() + " " + word.getWord() + " " + word.getTranslation());
+            }
+
+            try {
+                sql.addSubject(getWords(), (String) subjectName.getText());
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        addWordButton.setOnAction(e -> {
+            HBox newWordHBox = new HBox(10);
+            wordVBox.setMargin(newWordHBox, new Insets(5,0,5,5));
+
+
+            TextField pronoun = new TextField();
+            TextField word = new TextField();
+            TextField translation = new TextField();
+
+            pronoun.setOnKeyPressed(e1 ->{
+                if (e1.getCode() == KeyCode.ENTER){
+                    word.requestFocus();
+                }
+            });
+            word.setOnKeyPressed(e2 ->{
+                if (e2.getCode() == KeyCode.ENTER){
+                    translation.requestFocus();
+                }
+            });
+
+            pronoun.setPromptText("Enter pronoun");
+            word.setPromptText("Enter word");
+            translation.setPromptText("Enter translation");
+
+            Button deleteSelfBtn = new Button("-");
+            deleteSelfBtn.setOnAction(e4 ->{
+                wordVBox.getChildren().remove(newWordHBox);
+            });
+            deleteSelfBtn.setAlignment(Pos.CENTER_LEFT);
+
+            newWordHBox.getChildren().addAll(pronoun, word, translation, deleteSelfBtn);
+            wordVBox.getChildren().add(newWordHBox);
+        });
+
 
 
 
@@ -109,6 +174,28 @@ public class MainController {
         });
 
         }
+
+    //      ============Functions====================
+    private List<Word> getWords(){
+        List<Word> words = new ArrayList<>();
+        for(Node wordNode : wordVBox.getChildren()){
+            HBox hBox = (HBox) wordNode;
+
+            TextField pronounField = (TextField) hBox.getChildren().get(0);
+            TextField wordField = (TextField) hBox.getChildren().get(1);
+            TextField translationField = (TextField) hBox.getChildren().get(2);
+
+            String pronoun = pronounField.getText();
+            String word = wordField.getText();
+            String translation = translationField.getText();
+
+            Word w = new Word(pronoun, word, translation);
+
+            words.add(w);
+        };
+        return words;
+    }
+
     //      ============Anim====================
     private void sideBarAnim() {
         contextMenuButton.setDisable(true);
