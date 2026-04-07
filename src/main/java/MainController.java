@@ -62,6 +62,9 @@ public class MainController {
     @FXML
     private void initialize(){
         startButton.setOnAction(e -> {
+            selectionSubjectVBox.getChildren().clear();
+            selectionWordsVBox.getChildren().clear();
+            checkBoxes.clear();
             ArrayList<String> subjectList;
             try {
                 subjectList = sql.getSubjects();
