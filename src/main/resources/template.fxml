@@ -176,9 +176,9 @@
             </VBox>
          </children>
       </Pane>
-      <SplitPane fx:id="selectionSplitPane" dividerPositions="0.4414715719063545" prefHeight="400.0" prefWidth="600.0" visible="false">
+      <SplitPane fx:id="selectionSplitPane" dividerPositions="0.5903010033444817" prefHeight="400.0" prefWidth="600.0">
          <items>
-            <AnchorPane maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="200.0" prefHeight="400.0">
+            <AnchorPane maxHeight="400.0" maxWidth="350.0" minHeight="400.0" minWidth="250.0" prefHeight="400.0">
                <children>
                   <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="350.0" maxWidth="400.0" minHeight="350.0" minWidth="200.0" prefHeight="350.0" vbarPolicy="ALWAYS" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <content>
@@ -187,6 +187,11 @@
                   </ScrollPane>
                   <HBox alignment="TOP_CENTER" layoutY="350.0" maxWidth="400.0" minWidth="200.0" prefHeight="50.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
+                        <Button fx:id="backButton2" mnemonicParsing="false" style="-fx-background-color: inherit;" text="&lt;-">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
                         <Button fx:id="selectionAcceptBtn" mnemonicParsing="false" text="Accept" />
 <!--                              <Button fx:id="selectionAcceptBtn" mnemonicParsing="false" text="Accept" />-->
                         <Button fx:id="selectionClearBtn" mnemonicParsing="false" text="Clear Selection" />
@@ -201,7 +206,7 @@
                <children>
                   <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="200.0" prefHeight="400.0" vbarPolicy="ALWAYS" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <content>
-                        <VBox fx:id="selectionWordsVBox" maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="200.0" prefHeight="400.0" />
+                        <VBox fx:id="selectionWordsVBox" maxWidth="350.0" minHeight="400.0" minWidth="250.0" />
                      </content>
                   </ScrollPane>
                </children>

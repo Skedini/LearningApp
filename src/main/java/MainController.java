@@ -42,6 +42,7 @@ public class MainController {
     @FXML Button saveSubjectButton;
     @FXML Button backButton1;
     @FXML Button backButton;
+    @FXML Button backButton2;
     @FXML Button contextMenuButton;
     @FXML Button contextMenuEasy;
     @FXML Button contextMenuMedium;
@@ -54,6 +55,8 @@ public class MainController {
 
 //  =============Values==========
     Map<String, CheckBox> checkBoxes = new HashMap<>();
+    ArrayList<Integer> subIDs = new ArrayList<>();
+    ArrayList<Word> wordList = new  ArrayList<>();
 
 //  ========== Main Tab =========
     @FXML
@@ -78,10 +81,54 @@ public class MainController {
                 Label label = new Label(subject);
                 CheckBox checkBox = new CheckBox();
                 checkBox.setSelected(false);
+
+                checkBox.setOnAction(e2 -> {
+                    selectionWordsVBox.getChildren().clear();
+                    ArrayList<String> selectedSubjects = new  ArrayList<>();
+                    for(Map.Entry<String, CheckBox> entry : checkBoxes.entrySet()){
+                        if(entry.getValue().isSelected()){
+                            selectedSubjects.add(entry.getKey());
+                        }
+                    }
+                    try {
+                        subIDs = sql.getSubIDs(selectedSubjects);
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
+                    try {
+                        wordList = sql.getWords(subIDs);
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
+                    for (Word word : wordList){
+
+                        String pronoun =  word.getPronoun();
+                        String wordString = word.getWord();
+                        String translation = word.getTranslation();
+
+                        HBox wordHBox = new HBox(10);
+                        wordHBox.setAlignment(Pos.CENTER_RIGHT);
+                        wordHBox.setPadding(new Insets(0,0,20,0));
+
+                        Label pronounLabel = new Label(pronoun);
+                        Label wordLabel = new Label(wordString);
+                        Label translationLabel = new Label(translation);
+
+
+                        wordHBox.getChildren().addAll(pronounLabel, wordLabel, translationLabel);
+                        selectionWordsVBox.getChildren().add(wordHBox);
+                    }
+
+                });
+
                 checkBoxes.put(subject, checkBox);
                 hBox.getChildren().addAll(label, checkBox);
                 selectionSubjectVBox.getChildren().add(hBox);
             }
+
+
         });
 
         addMaterialButton.setOnAction(e -> {
@@ -90,7 +137,7 @@ public class MainController {
         });
 
         backButton1.setOnAction(e -> {
-            mainPane.setVisible(true);
+            selectionSplitPane.setVisible(true);
             learnPane.setVisible(false);
         });
 
@@ -173,8 +220,24 @@ public class MainController {
             pronoun.requestFocus();
         });
 
+//  ================= Selection Pane ===================
 
+        selectionAcceptBtn.setOnAction(e -> {
+            selectionSplitPane.setVisible(false);
+            learnPane.setVisible(true);
+        });
 
+        selectionClearBtn.setOnAction(e -> {
+            for(Map.Entry<String, CheckBox> entry : checkBoxes.entrySet()){
+                entry.getValue().setSelected(false);
+                selectionWordsVBox.getChildren().clear();
+            }
+        });
+
+        backButton2.setOnAction(e -> {
+           mainPane.setVisible(true);
+           selectionSplitPane.setVisible(false);
+        });
 
 //  ================= Learning Pane ==================
 

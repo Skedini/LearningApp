@@ -51,4 +51,36 @@ public class SQLiteController {
         }
         return subjects;
     }
+
+    public ArrayList<Integer> getSubIDs(ArrayList<String> subjectNames) throws SQLException {
+        ArrayList<Integer> subIDs = new ArrayList<>();
+
+        for (String subjectName : subjectNames) {
+            String query = "SELECT id FROM subjects WHERE subject_name LIKE ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, subjectName);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                subIDs.add(rs.getInt(1));
+            }
+        }
+
+        return subIDs;
+    }
+
+    public ArrayList<Word> getWords(ArrayList<Integer> subIDs) throws SQLException {
+        ArrayList<Word> words = new ArrayList<>();
+
+        for(Integer subID : subIDs){
+            String query = "SELECT pronoun, word, translation FROM words WHERE subject_id LIKE ?;";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, subID);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                Word word = new Word(rs.getString(1), rs.getString(2), rs.getString(3));
+                words.add(word);
+            }
+        }
+        return words;
+    }
 }
