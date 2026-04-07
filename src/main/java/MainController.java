@@ -79,13 +79,19 @@ public class MainController {
         });
 
         saveSubjectButton.setOnAction(e -> {
+
+            List<Word> wordList = getWords();
+
+            if (wordList.isEmpty() || subjectName.getText().isEmpty()) {
+                return;
+            }
             System.out.println(subjectName.getText());
-            for(Word word : getWords()){
+            for(Word word : wordList){
                 System.out.println(word.getPronoun() + " " + word.getWord() + " " + word.getTranslation());
             }
 
             try {
-                sql.addSubject(getWords(), (String) subjectName.getText());
+                sql.addSubject(wordList, (String) subjectName.getText());
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
@@ -97,32 +103,51 @@ public class MainController {
 
 
             TextField pronoun = new TextField();
+            pronoun.setPromptText("Enter pronoun");
+
             TextField word = new TextField();
+            word.setPromptText("Enter word");
+
             TextField translation = new TextField();
+            translation.setPromptText("Enter translation");
+
+            Button deleteSelfBtn = new Button("-");
 
             pronoun.setOnKeyPressed(e1 ->{
                 if (e1.getCode() == KeyCode.ENTER){
                     word.requestFocus();
+                }
+                else if (e1.getCode() == KeyCode.BACK_SPACE && pronoun.getText().isEmpty()){
+                    int index = Math.max(0, wordVBox.getChildren().indexOf(newWordHBox) - 1);
+                    HBox targethbox = (HBox) wordVBox.getChildren().get(index);
+                    targethbox.getChildren().get(2).requestFocus();
+                    deleteSelfBtn.fire();
                 }
             });
             word.setOnKeyPressed(e2 ->{
                 if (e2.getCode() == KeyCode.ENTER){
                     translation.requestFocus();
                 }
+                else if (e2.getCode() == KeyCode.BACK_SPACE && word.getText().isEmpty()){
+                    pronoun.requestFocus();
+                }
+            });
+            translation.setOnKeyPressed(e2 ->{
+                if (e2.getCode() == KeyCode.ENTER){
+                    addWordButton.fire();
+                }
+                else if (e2.getCode() == KeyCode.BACK_SPACE && translation.getText().isEmpty()){
+                    word.requestFocus();
+                }
             });
 
-            pronoun.setPromptText("Enter pronoun");
-            word.setPromptText("Enter word");
-            translation.setPromptText("Enter translation");
-
-            Button deleteSelfBtn = new Button("-");
             deleteSelfBtn.setOnAction(e4 ->{
                 wordVBox.getChildren().remove(newWordHBox);
             });
-            deleteSelfBtn.setAlignment(Pos.CENTER_LEFT);
 
             newWordHBox.getChildren().addAll(pronoun, word, translation, deleteSelfBtn);
             wordVBox.getChildren().add(newWordHBox);
+            pronoun.requestFocus();
         });
 
 
@@ -177,6 +202,7 @@ public class MainController {
 
     //      ============Functions====================
     private List<Word> getWords(){
+        int index = 1;
         List<Word> words = new ArrayList<>();
         for(Node wordNode : wordVBox.getChildren()){
             HBox hBox = (HBox) wordNode;
@@ -185,6 +211,12 @@ public class MainController {
             TextField wordField = (TextField) hBox.getChildren().get(1);
             TextField translationField = (TextField) hBox.getChildren().get(2);
 
+            if(wordField.getText().isEmpty() || translationField.getText().isEmpty()) {
+                System.out.println("Unable to get words from row " + index + " becouse it's blank");
+                index++;
+                continue;
+            }
+
             String pronoun = pronounField.getText();
             String word = wordField.getText();
             String translation = translationField.getText();
@@ -192,6 +224,7 @@ public class MainController {
             Word w = new Word(pronoun, word, translation);
 
             words.add(w);
+            index++;
         };
         return words;
     }

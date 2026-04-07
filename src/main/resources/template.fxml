@@ -67,7 +67,7 @@
                <children>
                   <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="295.0" maxWidth="600.0" minHeight="295.0" minWidth="600.0" prefWidth="600.0">
                      <content>
-                        <VBox fx:id="wordVBox" maxWidth="585.0" minHeight="300.0" minWidth="585.0" prefWidth="585.0" />
+                        <VBox fx:id="wordVBox" maxWidth="585.0" minHeight="295.0" minWidth="585.0" prefWidth="585.0" />
                      </content>
                   </ScrollPane>
                </children>

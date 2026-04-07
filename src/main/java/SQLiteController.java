@@ -7,7 +7,7 @@ public class SQLiteController {
     private Connection conn = DriverManager.getConnection("jdbc:sqlite:database.db");
 
     public SQLiteController() throws SQLException {
-        String query = "CREATE TABLE IF NOT EXISTS subject (id INTEGER PRIMARY KEY AUTOINCREMENT, subject_name VARCHAR);";
+        String query = "CREATE TABLE IF NOT EXISTS subjects (id INTEGER PRIMARY KEY AUTOINCREMENT, subject_name VARCHAR);";
         Statement stmt = conn.createStatement();
         stmt.execute(query);
         stmt.close();
@@ -15,16 +15,16 @@ public class SQLiteController {
     }
 
     public void addSubject(List<Word> words, String subjectName) throws SQLException {
-        String query = "CREATE TABLE IF NOT EXISTS words (subject_id INTEGER, id INTEGER PRIMARY KEY AUTOINCREMENT, pronoun VARCHAR, word VARCHAR, translation VARCHAR, FOREIGN KEY (subject_id) REFERENCES subject (id));";
+        String query = "CREATE TABLE IF NOT EXISTS words (subject_id INTEGER, id INTEGER PRIMARY KEY AUTOINCREMENT, pronoun VARCHAR, word VARCHAR, translation VARCHAR, FOREIGN KEY (subject_id) REFERENCES subjects (id));";
         Statement stmt = conn.createStatement();
         stmt.execute(query);
 
-        query = "INSERT INTO subject (subject_name) VALUES (?);";
+        query = "INSERT INTO subjects (subject_name) VALUES (?);";
         java.sql.PreparedStatement stmt2 = conn.prepareStatement(query);
         stmt2.setString(1, subjectName);
         stmt2.executeUpdate();
 
-        query = "SELECT id FROM subject WHERE subject_name = ?;";
+        query = "SELECT id FROM subjects WHERE subject_name = ?;";
         stmt2 = conn.prepareStatement(query);
         stmt2.setString(1, subjectName);
         ResultSet rs = stmt2.executeQuery();
