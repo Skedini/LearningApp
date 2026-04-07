@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
 
@@ -38,5 +39,16 @@ public class SQLiteController {
             stmt2.setString(4, word.getTranslation());
             stmt2.executeUpdate();
         }
+    }
+
+    public ArrayList<String> getSubjects() throws SQLException {
+        ArrayList<String> subjects = new ArrayList<>();
+        String query = "SELECT * FROM subjects;";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        while(rs.next()){
+            subjects.add(rs.getString(2));
+        }
+        return subjects;
     }
 }

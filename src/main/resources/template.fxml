@@ -114,7 +114,8 @@
                   <TextField alignment="CENTER" maxHeight="40.0" maxWidth="300.0" minHeight="40.0" minWidth="300.0" prefHeight="40.0" prefWidth="300.0" promptText="Your Answear">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
-                     </cursor></TextField>
+                     </cursor>
+                  </TextField>
                </children>
             </HBox>
             <HBox fx:id="hBoxHard" alignment="CENTER" disable="true" layoutY="340.0" maxHeight="60.0" maxWidth="600.0" minHeight="60.0" minWidth="600.0" prefHeight="60.0" prefWidth="600.0" spacing="5.0" style="-fx-background-color: gray;" visible="false">
@@ -122,11 +123,13 @@
                   <TextField alignment="CENTER" maxHeight="40.0" maxWidth="120.0" minHeight="40.0" minWidth="120.0" prefHeight="40.0" prefWidth="120.0" promptText="Your Answear">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
-                     </cursor></TextField>
+                     </cursor>
+                  </TextField>
                   <TextField alignment="CENTER" maxHeight="40.0" maxWidth="300.0" minHeight="40.0" minWidth="300.0" prefHeight="40.0" prefWidth="300.0" promptText="Your Answear">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
-                     </cursor></TextField>
+                     </cursor>
+                  </TextField>
                </children>
             </HBox>
             <Label fx:id="wordDisplay" alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="1.0" prefHeight="340.0" prefWidth="600.0" text="Der Kopf">
@@ -154,11 +157,13 @@
                   <Button fx:id="contextMenuEasy" maxHeight="50.0" maxWidth="130.0" minHeight="50.0" minWidth="130.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #f4f4f4; -fx-border-color: gray gray gray transparent; -fx-border-width: 2 1 1 1;" text="Select Right">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></Button>
+                     </cursor>
+                  </Button>
                   <Button fx:id="contextMenuMedium" maxHeight="50.0" maxWidth="130.0" minHeight="50.0" minWidth="130.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #f4f4f4; -fx-border-color: gray gray gray transparent; -fx-border-width: 1;" text="Word Writing">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></Button>
+                     </cursor>
+                  </Button>
                   <Button fx:id="contextMenuHard" maxHeight="50.0" maxWidth="130.0" minHeight="50.0" minWidth="130.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #f4f4f4; -fx-border-color: gray gray gray transparent; -fx-border-width: 1 1 2 1;" text="Word Writing + Pronoun">
                      <font>
                         <Font size="10.0" />
@@ -171,5 +176,37 @@
             </VBox>
          </children>
       </Pane>
+      <SplitPane fx:id="selectionSplitPane" dividerPositions="0.4414715719063545" prefHeight="400.0" prefWidth="600.0" visible="false">
+         <items>
+            <AnchorPane maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="200.0" prefHeight="400.0">
+               <children>
+                  <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="350.0" maxWidth="400.0" minHeight="350.0" minWidth="200.0" prefHeight="350.0" vbarPolicy="ALWAYS" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <content>
+                        <VBox fx:id="selectionSubjectVBox" maxWidth="400.0" minHeight="350.0" minWidth="200.0" />
+                     </content>
+                  </ScrollPane>
+                  <HBox alignment="TOP_CENTER" layoutY="350.0" maxWidth="400.0" minWidth="200.0" prefHeight="50.0" spacing="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                        <Button fx:id="selectionAcceptBtn" mnemonicParsing="false" text="Accept" />
+<!--                              <Button fx:id="selectionAcceptBtn" mnemonicParsing="false" text="Accept" />-->
+                        <Button fx:id="selectionClearBtn" mnemonicParsing="false" text="Clear Selection" />
+                     </children>
+                     <padding>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="200.0" prefHeight="400.0">
+               <children>
+                  <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="200.0" prefHeight="400.0" vbarPolicy="ALWAYS" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <content>
+                        <VBox fx:id="selectionWordsVBox" maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="200.0" prefHeight="400.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
+         </items>
+      </SplitPane>
    </children>
 </Pane>

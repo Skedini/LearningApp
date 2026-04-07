@@ -4,29 +4,29 @@ import javafx.geometry.Insets;
 import javafx.geometry.Point3D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainController {
     @FXML TextField subjectName;
     @FXML Pane rootPane;
     @FXML Pane mainPane;
     @FXML SplitPane addMaterialPane;
+    @FXML SplitPane selectionSplitPane;
     @FXML Pane learnPane;
     @FXML VBox contextMenu;
+    @FXML VBox selectionSubjectVBox;
+    @FXML VBox selectionWordsVBox;
     @FXML HBox hBoxEasy;
     @FXML HBox hBoxMedium;
     @FXML HBox hBoxHard;
@@ -46,19 +46,42 @@ public class MainController {
     @FXML Button contextMenuEasy;
     @FXML Button contextMenuMedium;
     @FXML Button contextMenuHard;
+    @FXML Button selectionAcceptBtn;
+    @FXML Button selectionClearBtn;
 
     public MainController() throws SQLException {
     }
 
 //  =============Values==========
-
+    Map<String, CheckBox> checkBoxes = new HashMap<>();
 
 //  ========== Main Tab =========
     @FXML
     private void initialize(){
         startButton.setOnAction(e -> {
+            ArrayList<String> subjectList;
+            try {
+                subjectList = sql.getSubjects();
+            }catch (SQLException e2){
+                throw new RuntimeException(e2);
+            }
+
             mainPane.setVisible(false);
-            learnPane.setVisible(true);
+            selectionSplitPane.setVisible(true);
+            if(subjectList.isEmpty()){
+                System.out.println("Coś jest zjebane frajerze");           }
+
+            for (String subject : subjectList){
+                HBox hBox = new HBox(10);
+                hBox.setAlignment(Pos.CENTER_RIGHT);
+                hBox.setPadding(new Insets(0,0,20,0));
+                Label label = new Label(subject);
+                CheckBox checkBox = new CheckBox();
+                checkBox.setSelected(false);
+                checkBoxes.put(subject, checkBox);
+                hBox.getChildren().addAll(label, checkBox);
+                selectionSubjectVBox.getChildren().add(hBox);
+            }
         });
 
         addMaterialButton.setOnAction(e -> {
