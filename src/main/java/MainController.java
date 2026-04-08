@@ -12,12 +12,10 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MainController {
+    @FXML Label wordDisplay;
     @FXML TextField subjectName;
     @FXML Pane rootPane;
     @FXML Pane mainPane;
@@ -49,14 +47,23 @@ public class MainController {
     @FXML Button contextMenuHard;
     @FXML Button selectionAcceptBtn;
     @FXML Button selectionClearBtn;
+    @FXML Button resBtn1;
+    @FXML Button resBtn2;
+    @FXML Button resBtn3;
+    @FXML Button resBtn4;
 
     public MainController() throws SQLException {
     }
 
 //  =============Values==========
-    Map<String, CheckBox> checkBoxes = new HashMap<>();
-    ArrayList<Integer> subIDs = new ArrayList<>();
-    ArrayList<Word> wordList = new  ArrayList<>();
+    private Word correctWord = new Word();
+
+    //0-easy, 1-medium, 2-hard
+    private int difficulty = 0;
+
+    private Map<String, CheckBox> checkBoxes = new HashMap<>();
+    private ArrayList<Integer> subIDs = new ArrayList<>();
+    private ArrayList<Word> wordList = new  ArrayList<>();
 
 //  ========== Main Tab =========
     @FXML
@@ -75,7 +82,8 @@ public class MainController {
             mainPane.setVisible(false);
             selectionSplitPane.setVisible(true);
             if(subjectList.isEmpty()){
-                System.out.println("Coś jest zjebane frajerze");           }
+                System.out.println("Error: Subject list is empty");
+            }
 
             for (String subject : subjectList){
                 HBox hBox = new HBox(10);
@@ -228,6 +236,8 @@ public class MainController {
         selectionAcceptBtn.setOnAction(e -> {
             selectionSplitPane.setVisible(false);
             learnPane.setVisible(true);
+            ArrayList<Word> tempWords = randomizeWords(4);
+            insertWordsToLearnPane(tempWords);
         });
 
         selectionClearBtn.setOnAction(e -> {
@@ -287,7 +297,24 @@ public class MainController {
             }
         });
 
-        }
+        resBtn1.setOnAction(e -> {
+            handleResponse(resBtn1);
+        });
+
+        resBtn2.setOnAction(e -> {
+            handleResponse(resBtn2);
+        });
+
+        resBtn3.setOnAction(e -> {
+            handleResponse(resBtn3);
+        });
+
+        resBtn4.setOnAction(e -> {
+            handleResponse(resBtn4);
+        });
+
+
+    }
 
     //      ============Functions====================
     private List<Word> getWords(){
@@ -316,6 +343,41 @@ public class MainController {
             index++;
         };
         return words;
+    }
+
+    private ArrayList<Word> randomizeWords(int wordcount){
+        ArrayList<Word> copy = new ArrayList<>(wordList);
+        Collections.shuffle(copy);
+        return new ArrayList<>(copy.subList(0, Math.min(wordcount, copy.size())));
+    }
+
+    private void insertWordsToLearnPane(ArrayList<Word>tempwordlist){
+        Random random = new Random();
+        correctWord = tempwordlist.get(random.nextInt(0, tempwordlist.size()));
+        int type = random.nextInt(0,2);
+        switch (type){
+            case 0: //mother to foreign
+                resBtn1.setText(tempwordlist.get(0).getPronoun() + " " + tempwordlist.get(0).getWord());
+                resBtn2.setText(tempwordlist.get(1).getPronoun() + " " + tempwordlist.get(1).getWord());
+                resBtn3.setText(tempwordlist.get(2).getPronoun() + " " + tempwordlist.get(2).getWord());
+                resBtn4.setText(tempwordlist.get(3).getPronoun() + " " + tempwordlist.get(3).getWord());
+                wordDisplay.setText(String.valueOf(correctWord.getTranslation()));
+                break;
+
+            case 1: //foreign to mother
+                resBtn1.setText(tempwordlist.get(0).getTranslation());
+                resBtn2.setText(tempwordlist.get(1).getTranslation());
+                resBtn3.setText(tempwordlist.get(2).getTranslation());
+                resBtn4.setText(tempwordlist.get(3).getTranslation());
+                wordDisplay.setText(String.valueOf(correctWord.getPronoun() + " " + correctWord.getWord()));
+        }
+
+    }
+
+    private void handleResponse(Button btn){
+        if (btn.getText().equals(correctWord.getTranslation()) || btn.getText().equals(correctWord.getPronoun() + " " + correctWord.getWord())){
+            insertWordsToLearnPane(randomizeWords(4));
+        }
     }
 
     //      ============Anim====================

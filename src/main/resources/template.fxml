@@ -81,7 +81,7 @@
          <children>
             <HBox fx:id="hBoxEasy" alignment="CENTER" layoutY="340.0" maxHeight="60.0" maxWidth="600.0" minHeight="60.0" minWidth="600.0" prefHeight="60.0" prefWidth="600.0" spacing="5.0" style="-fx-background-color: gray;">
                <children>
-                <Button contentDisplay="CENTER" maxHeight="40.0" maxWidth="200.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #f4f4f4;" text="Button" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                <Button fx:id="resBtn1" contentDisplay="CENTER" maxHeight="40.0" maxWidth="200.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #f4f4f4;" text="Button" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -89,17 +89,17 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button contentDisplay="CENTER" maxHeight="40.0" maxWidth="200.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #f4f4f4;" text="Button" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                  <Button fx:id="resBtn2" contentDisplay="CENTER" maxHeight="40.0" maxWidth="200.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #f4f4f4;" text="Button" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button contentDisplay="CENTER" maxHeight="40.0" maxWidth="200.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #f4f4f4;" text="Button" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                  <Button fx:id="resBtn3" contentDisplay="CENTER" maxHeight="40.0" maxWidth="200.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #f4f4f4;" text="Button" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button contentDisplay="CENTER" maxHeight="40.0" maxWidth="200.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #f4f4f4;" text="Button" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                  <Button fx:id="resBtn4" contentDisplay="CENTER" maxHeight="40.0" maxWidth="200.0" minHeight="40.0" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #f4f4f4;" text="Button" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
