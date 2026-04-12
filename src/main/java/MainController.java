@@ -17,6 +17,9 @@ import java.util.*;
 public class MainController {
     @FXML Label wordDisplay;
     @FXML TextField subjectName;
+    @FXML TextField mediumTextField;
+    @FXML TextField hardTextFieldP;
+    @FXML TextField hardTextFieldW;
     @FXML Pane rootPane;
     @FXML Pane mainPane;
     @FXML SplitPane addMaterialPane;
@@ -59,7 +62,7 @@ public class MainController {
     private Word correctWord = new Word();
 
     //0-easy, 1-medium, 2-hard
-    private int difficulty = 0;
+    Difficulty difficulty = Difficulty.Easy;
 
     private Map<String, CheckBox> checkBoxes = new HashMap<>();
     private ArrayList<Integer> subIDs = new ArrayList<>();
@@ -259,58 +262,64 @@ public class MainController {
         });
 
         contextMenuEasy.setOnAction(e ->{
+            difficulty = Difficulty.Easy;
             hBoxEasy.setVisible(true);
             hBoxMedium.setVisible(false);
             hBoxHard.setVisible(false);
             hBoxEasy.setDisable(false);
             hBoxMedium.setDisable(true);
             hBoxHard.setDisable(true);
+            insertWordsToLearnPane(wordList);
         });
 
         contextMenuMedium.setOnAction(e ->{
+            difficulty = Difficulty.Medium;
             hBoxEasy.setVisible(false);
             hBoxMedium.setVisible(true);
             hBoxHard.setVisible(false);
             hBoxEasy.setDisable(true);
             hBoxMedium.setDisable(false);
             hBoxHard.setDisable(true);
+            insertWordsToLearnPane(wordList);
         });
 
         contextMenuHard.setOnAction(e ->{
+            difficulty = Difficulty.Hard;
             hBoxEasy.setVisible(false);
             hBoxMedium.setVisible(false);
             hBoxHard.setVisible(true);
             hBoxEasy.setDisable(true);
             hBoxMedium.setDisable(true);
             hBoxHard.setDisable(false);
+            insertWordsToLearnPane(wordList);
         });
 
         hBoxMedium.setOnKeyPressed(e ->{
            if (e.getCode() == KeyCode.ENTER){
-               backButton1.fire();
+               handleResponseMedium(mediumTextField);
            }
         });
 
         hBoxHard.setOnKeyPressed(e ->{
             if (e.getCode() == KeyCode.ENTER){
-                backButton1.fire();
+                handleResponseHard(hardTextFieldW, hardTextFieldP);
             }
         });
 
         resBtn1.setOnAction(e -> {
-            handleResponse(resBtn1);
+            handleResponseEasy(resBtn1);
         });
 
         resBtn2.setOnAction(e -> {
-            handleResponse(resBtn2);
+            handleResponseEasy(resBtn2);
         });
 
         resBtn3.setOnAction(e -> {
-            handleResponse(resBtn3);
+            handleResponseEasy(resBtn3);
         });
 
         resBtn4.setOnAction(e -> {
-            handleResponse(resBtn4);
+            handleResponseEasy(resBtn4);
         });
 
 
@@ -357,25 +366,44 @@ public class MainController {
         int type = random.nextInt(0,2);
         switch (type){
             case 0: //mother to foreign
-                resBtn1.setText(tempwordlist.get(0).getPronoun() + " " + tempwordlist.get(0).getWord());
-                resBtn2.setText(tempwordlist.get(1).getPronoun() + " " + tempwordlist.get(1).getWord());
-                resBtn3.setText(tempwordlist.get(2).getPronoun() + " " + tempwordlist.get(2).getWord());
-                resBtn4.setText(tempwordlist.get(3).getPronoun() + " " + tempwordlist.get(3).getWord());
-                wordDisplay.setText(String.valueOf(correctWord.getTranslation()));
+                if (difficulty.equals(Difficulty.Easy)){
+                    resBtn1.setText(tempwordlist.get(0).getPronoun() + " " + tempwordlist.get(0).getWord());
+                    resBtn2.setText(tempwordlist.get(1).getPronoun() + " " + tempwordlist.get(1).getWord());
+                    resBtn3.setText(tempwordlist.get(2).getPronoun() + " " + tempwordlist.get(2).getWord());
+                    resBtn4.setText(tempwordlist.get(3).getPronoun() + " " + tempwordlist.get(3).getWord());
+                    wordDisplay.setText(String.valueOf(correctWord.getTranslation()));
+
+                } else wordDisplay.setText(String.valueOf(correctWord.getTranslation()));
                 break;
 
             case 1: //foreign to mother
-                resBtn1.setText(tempwordlist.get(0).getTranslation());
-                resBtn2.setText(tempwordlist.get(1).getTranslation());
-                resBtn3.setText(tempwordlist.get(2).getTranslation());
-                resBtn4.setText(tempwordlist.get(3).getTranslation());
-                wordDisplay.setText(String.valueOf(correctWord.getPronoun() + " " + correctWord.getWord()));
+                if (difficulty.equals(Difficulty.Easy)){
+                    resBtn1.setText(tempwordlist.get(0).getTranslation());
+                    resBtn2.setText(tempwordlist.get(1).getTranslation());
+                    resBtn3.setText(tempwordlist.get(2).getTranslation());
+                    resBtn4.setText(tempwordlist.get(3).getTranslation());
+                    wordDisplay.setText(String.valueOf(correctWord.getPronoun() + " " + correctWord.getWord()));
+                } else wordDisplay.setText(String.valueOf(correctWord.getPronoun() + " " + correctWord.getWord()));
+                break;
+
         }
 
     }
 
-    private void handleResponse(Button btn){
+    private void handleResponseEasy(Button btn){
         if (btn.getText().equals(correctWord.getTranslation()) || btn.getText().equals(correctWord.getPronoun() + " " + correctWord.getWord())){
+            insertWordsToLearnPane(randomizeWords(4));
+        }
+    }
+
+    private void handleResponseMedium(TextField txt1){
+        if ((txt1.getText().equalsIgnoreCase(correctWord.getTranslation()) || txt1.getText().equalsIgnoreCase(correctWord.getWord()))){
+            insertWordsToLearnPane(randomizeWords(4));
+        }
+    }
+
+    private void handleResponseHard(TextField txt1, TextField txt2){
+        if ((txt1.getText().equalsIgnoreCase(correctWord.getTranslation()) || txt1.getText().equalsIgnoreCase(correctWord.getWord())) && (txt2.getText().equalsIgnoreCase(correctWord.getPronoun().toLowerCase()) || wordDisplay.getText().equals(correctWord.getPronoun() + " " + correctWord.getWord()))){
             insertWordsToLearnPane(randomizeWords(4));
         }
     }

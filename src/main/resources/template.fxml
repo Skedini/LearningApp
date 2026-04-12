@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
+<Pane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
    <children>
       <Pane fx:id="mainPane" prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -111,7 +111,7 @@
             </HBox>
             <HBox fx:id="hBoxMedium" alignment="CENTER" disable="true" layoutY="340.0" maxHeight="60.0" maxWidth="600.0" minHeight="60.0" minWidth="600.0" prefHeight="60.0" prefWidth="600.0" spacing="5.0" style="-fx-background-color: gray;" visible="false">
                <children>
-                  <TextField alignment="CENTER" maxHeight="40.0" maxWidth="300.0" minHeight="40.0" minWidth="300.0" prefHeight="40.0" prefWidth="300.0" promptText="Your Answear">
+                  <TextField fx:id="mediumTextField" alignment="CENTER" maxHeight="40.0" maxWidth="300.0" minHeight="40.0" minWidth="300.0" prefHeight="40.0" prefWidth="300.0" promptText="Your Answear">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
@@ -120,12 +120,12 @@
             </HBox>
             <HBox fx:id="hBoxHard" alignment="CENTER" disable="true" layoutY="340.0" maxHeight="60.0" maxWidth="600.0" minHeight="60.0" minWidth="600.0" prefHeight="60.0" prefWidth="600.0" spacing="5.0" style="-fx-background-color: gray;" visible="false">
                <children>
-                  <TextField alignment="CENTER" maxHeight="40.0" maxWidth="120.0" minHeight="40.0" minWidth="120.0" prefHeight="40.0" prefWidth="120.0" promptText="Your Answear">
+                  <TextField fx:id="hardTextFieldP" alignment="CENTER" maxHeight="40.0" maxWidth="120.0" minHeight="40.0" minWidth="120.0" prefHeight="40.0" prefWidth="120.0" promptText="Your Answear">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </TextField>
-                  <TextField alignment="CENTER" maxHeight="40.0" maxWidth="300.0" minHeight="40.0" minWidth="300.0" prefHeight="40.0" prefWidth="300.0" promptText="Your Answear">
+                  <TextField fx:id="hardTextFieldW" alignment="CENTER" maxHeight="40.0" maxWidth="300.0" minHeight="40.0" minWidth="300.0" prefHeight="40.0" prefWidth="300.0" promptText="Your Answear">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
